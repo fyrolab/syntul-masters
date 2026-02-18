@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель — Сынтул-Мастерс 2026</title>
+    <link rel="icon" type="image/png" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-900: #0A2463;
+            --blue-800: #0D3B8C;
+            --blue-700: #1054B5;
+            --blue-600: #1565C0;
+            --blue-500: #1E88E5;
+            --blue-400: #42A5F5;
+            --blue-50: #E8F1FB;
+            --white: #FFFFFF;
+            --gray-50: #F7F9FC;
+            --gray-100: #EEF2F7;
+            --gray-200: #D8DFE9;
+            --gray-400: #8E99A9;
+            --gray-600: #4A5568;
+            --gray-800: #1A202C;
+            --red-500: #E53E3E;
+            --green-500: #38A169;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(10, 36, 99, 0.10);
+            --shadow-lg: 0 8px 40px rgba(10, 36, 99, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ─── LOGIN SCREEN ─── */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .login-screen.hidden { display: none; }
+
+        .login-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem 2rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-card h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--blue-800);
+            margin-bottom: 0.3rem;
+        }
+
+        .login-card p {
+            color: var(--gray-400);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .login-card input:focus {
+            outline: none;
+            border-color: var(--blue-500);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .login-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(13,59,140,0.3); }
+
+        .login-error {
+            color: var(--red-500);
+            font-size: 0.82rem;
+            margin-top: 0.8rem;
+            display: none;
+        }
+
+        /* ─── DASHBOARD ─── */
+        .dashboard { display: none; }
+        .dashboard.active { display: block; }
+
+        .dash-header {
+            background: linear-gradient(135deg, var(--blue-900), var(--blue-700));
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dash-header h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .dash-header-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn svg { width: 16px; height: 16px; }
+
+        .btn--white {
+            background: white;
+            color: var(--blue-800);
+        }
+
+        .btn--white:hover { background: var(--blue-50); }
+
+        .btn--outline {
+            background: transparent;
+            color: white;
+            border: 1.5px solid rgba(255,255,255,0.4);
+        }
+
+        .btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+        /* ─── STATS ─── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem 1rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card .stat-value {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--blue-700);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        /* ─── SEARCH & FILTERS ─── */
+        .toolbar {
+            padding: 0 1rem;
+            max-width: 100%;
+            margin: 0 auto 1rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%238E99A9' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 10-1.397 1.398h-.001l3.85 3.85a1 1 0 001.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 110-10 5 5 0 010 10z'/%3E%3C/svg%3E") no-repeat 0.8rem center;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--blue-500);
+            box-shadow: 0 0 0 3px rgba(30,136,229,0.15);
+        }
+
+        /* ─── TABLE ─── */
+        .table-wrap {
+            padding: 0 1rem 3rem;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            min-width: 100%;
+        }
+
+        thead {
+            background: var(--blue-50);
+        }
+
+        th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--blue-800);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            font-size: 0.88rem;
+            color: var(--gray-800);
+            border-top: 1px solid var(--gray-100);
+            vertical-align: top;
+        }
+
+        tr:hover td { background: var(--gray-50); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge--blue { background: var(--blue-50); color: var(--blue-700); }
+        .badge--green { background: #E6F4EA; color: #1B7A3D; }
+        .badge--purple { background: #F0E6FF; color: #6B21A8; }
+
+        .dist-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-400);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        .empty-state p {
+            font-size: 0.95rem;
+        }
+
+        /* ─── MOBILE CARDS VIEW ─── */
+        .cards-view {
+            display: none;
+            padding: 0 1rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .reg-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .reg-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+
+        .reg-card-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--gray-800);
+        }
+
+        .reg-card-num {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            font-weight: 600;
+        }
+
+        .reg-card-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+
+        .reg-card-label {
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .reg-card-value {
+            color: var(--gray-800);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .reg-card-distances {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            .dash-header { padding: 1rem; }
+            .dash-header h1 { font-size: 1rem; }
+            .stats-bar { padding: 1rem; }
+            .toolbar { padding: 0 1rem; }
+            .table-wrap { display: none; }
+            .cards-view { display: flex; }
+        }
+
+        @media (min-width: 769px) {
+            .cards-view { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── LOGIN ─── -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-card">
+        <img src="logo.svg" alt="Динамо Рязань" style="width:72px;height:auto;margin-bottom:1rem;">
+        <h1>Админ-панель</h1>
+        <p>Сынтул-Мастерс 2026</p>
+        <form id="loginForm">
+            <input type="password" id="tokenInput" placeholder="Введите пароль" autocomplete="off">
+            <button type="submit" class="login-btn">Войти</button>
+        </form>
+        <p class="login-error" id="loginError">Неверный пароль</p>
+    </div>
+</div>
+
+<!-- ─── DASHBOARD ─── -->
+<div class="dashboard" id="dashboard">
+
+    <header class="dash-header">
+        <h1>Заявки — Сынтул-Мастерс 2026</h1>
+        <div class="dash-header-actions">
+            <button class="btn btn--white" id="refreshBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182"/></svg>
+                Обновить
+            </button>
+            <a class="btn btn--outline" id="excelLink" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                Скачать Excel
+            </a>
+            <button class="btn btn--outline" id="logoutBtn">Выйти</button>
+        </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="statsBar">
+        <div class="stat-card">
+            <div class="stat-value" id="statTotal">0</div>
+            <div class="stat-label">Всего заявок</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statMale">0</div>
+            <div class="stat-label">Мужчины</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statFemale">0</div>
+            <div class="stat-label">Женщины</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="statRegions">0</div>
+            <div class="stat-label">Регионов</div>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="toolbar">
+        <input type="text" class="search-box" id="searchBox" placeholder="Поиск по фамилии, городу, классу лодки...">
+    </div>
+
+    <!-- Desktop table -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата</th>
+                    <th>ФИО</th>
+                    <th>Д.р.</th>
+                    <th>Пол</th>
+                    <th>Страна</th>
+                    <th>Город</th>
+                    <th>Звание</th>
+                    <th>Команда</th>
+                    <th>Лодка</th>
+                    <th>Телефон</th>
+                    <th>Дистанции</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="cards-view" id="cardsView">
+    </div>
+</div>
+
+<script>
+    var adminToken = sessionStorage.getItem('adminToken') || '';
+    var allData = [];
+
+    // ─── Auto-login if token saved ───
+    if (adminToken) {
+        loadData();
+    }
+
+    // ─── Login ───
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var token = document.getElementById('tokenInput').value.trim();
+        if (!token) return;
+        adminToken = token;
+        loadData();
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        adminToken = '';
+        sessionStorage.removeItem('adminToken');
+        allData = [];
+        document.getElementById('dashboard').classList.remove('active');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('tokenInput').value = '';
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', function() {
+        loadData();
+    });
+
+    // ─── Excel download via POST (token not in URL) ───
+    document.getElementById('excelLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/api/export', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-Admin-Token', adminToken);
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var blob = xhr.response;
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'syntul_masters_2026.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            } else {
+                alert('Ошибка скачивания');
+            }
+        };
+        xhr.send(JSON.stringify({ format: 'xlsx' }));
+    });
+
+    // ─── Load data ───
+    async function loadData() {
+        try {
+            var resp = await fetch('/api', {
+                headers: { 'X-Admin-Token': adminToken }
+            });
+            var result = await resp.json();
+
+            if (!result.success) {
+                document.getElementById('loginError').style.display = 'block';
+                sessionStorage.removeItem('adminToken');
+                adminToken = '';
+                return;
+            }
+
+            // Token is valid — persist in sessionStorage
+            sessionStorage.setItem('adminToken', adminToken);
+
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboard').classList.add('active');
+
+            allData = result.data || [];
+
+            updateStats();
+            renderTable(allData);
+            renderCards(allData);
+
+        } catch (err) {
+            alert('Ошибка загрузки данных');
+        }
+    }
+
+    // ─── Stats ───
+    function updateStats() {
+        document.getElementById('statTotal').textContent = allData.length;
+        document.getElementById('statMale').textContent =
+            allData.filter(function(r) { return r.gender === 'М'; }).length;
+        document.getElementById('statFemale').textContent =
+            allData.filter(function(r) { return r.gender === 'Ж'; }).length;
+
+        var regions = new Set(allData.map(function(r) { return r.region; }));
+        document.getElementById('statRegions').textContent = regions.size;
+    }
+
+    // ─── Render table (desktop) ───
+    function renderTable(data) {
+        var tbody = document.getElementById('tableBody');
+        // Clear existing rows
+        while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+        }
+
+        if (data.length === 0) {
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            td.setAttribute('colspan', '12');
+            td.style.textAlign = 'center';
+            td.style.padding = '3rem';
+            td.style.color = 'var(--gray-400)';
+            td.textContent = 'Заявок пока нет';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        data.forEach(function(reg, i) {
+            var tr = document.createElement('tr');
+
+            // №
+            var tdNum = document.createElement('td');
+            tdNum.textContent = i + 1;
+            tr.appendChild(tdNum);
+
+            // Date
+            var tdDate = document.createElement('td');
+            tdDate.style.whiteSpace = 'nowrap';
+            tdDate.textContent = reg.timestamp ? reg.timestamp.split(' ')[0] : '';
+            tr.appendChild(tdDate);
+
+            // FIO
+            var tdName = document.createElement('td');
+            tdName.style.fontWeight = '600';
+            var parts = [reg.surname, reg.firstname];
+            if (reg.patronymic) parts.push(reg.patronymic);
+            tdName.textContent = parts.join(' ');
+            tr.appendChild(tdName);
+
+            // Birthdate
+            var tdBirth = document.createElement('td');
+            tdBirth.style.whiteSpace = 'nowrap';
+            tdBirth.textContent = reg.birthdate;
+            tr.appendChild(tdBirth);
+
+            // Gender
+            var tdGender = document.createElement('td');
+            var genderBadge = document.createElement('span');
+            genderBadge.className = 'badge ' + (reg.gender === 'М' ? 'badge--blue' : 'badge--purple');
+            genderBadge.textContent = reg.gender;
+            tdGender.appendChild(genderBadge);
+            tr.appendChild(tdGender);
+
+            // Country
+            var tdCountry = document.createElement('td');
+            tdCountry.textContent = reg.country || '—';
+            tr.appendChild(tdCountry);
+
+            // City
+            var tdCity = document.createElement('td');
+            tdCity.textContent = reg.city || '—';
+            tr.appendChild(tdCity);
+
+            // Rank
+            var tdRank = document.createElement('td');
+            tdRank.textContent = reg.rank || '—';
+            tr.appendChild(tdRank);
+
+            // Team
+            var tdTeam = document.createElement('td');
+            tdTeam.style.fontWeight = '500';
+            tdTeam.textContent = reg.team || '—';
+            tr.appendChild(tdTeam);
+
+            // Boat
+            var tdBoat = document.createElement('td');
+            var boatBadge = document.createElement('span');
+            boatBadge.className = 'badge badge--green';
+            boatBadge.textContent = reg.boat_class;
+            tdBoat.appendChild(boatBadge);
+            tr.appendChild(tdBoat);
+
+            // Phone
+            var tdPhone = document.createElement('td');
+            tdPhone.style.whiteSpace = 'nowrap';
+            tdPhone.textContent = reg.phone;
+            tr.appendChild(tdPhone);
+
+            // Distances
+            var tdDist = document.createElement('td');
+            var distDiv = document.createElement('div');
+            distDiv.className = 'dist-list';
+            (reg.distances || []).forEach(function(d) {
+                var badge = document.createElement('span');
+                badge.className = 'badge badge--blue';
+                badge.textContent = d;
+                distDiv.appendChild(badge);
+            });
+            tdDist.appendChild(distDiv);
+            tr.appendChild(tdDist);
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ─── Render cards (mobile) ───
+    function renderCards(data) {
+        var container = document.getElementById('cardsView');
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+
+        if (data.length === 0) {
+            var p = document.createElement('p');
+            p.style.textAlign = 'center';
+            p.style.color = 'var(--gray-400)';
+            p.style.padding = '3rem 0';
+            p.textContent = 'Заявок пока нет';
+            container.appendChild(p);
+            return;
+        }
+
+        data.forEach(function(reg, i) {
+            var card = document.createElement('div');
+            card.className = 'reg-card';
+
+            // Header
+            var header = document.createElement('div');
+            header.className = 'reg-card-header';
+
+            var nameEl = document.createElement('div');
+            nameEl.className = 'reg-card-name';
+            var parts = [reg.surname, reg.firstname];
+            if (reg.patronymic) parts.push(reg.patronymic);
+            nameEl.textContent = parts.join(' ');
+
+            var numEl = document.createElement('div');
+            numEl.className = 'reg-card-num';
+            numEl.textContent = '#' + (i + 1);
+
+            header.appendChild(nameEl);
+            header.appendChild(numEl);
+            card.appendChild(header);
+
+            // Rows
+            var rows = [
+                ['Дата', reg.timestamp ? reg.timestamp.split(' ')[0] : ''],
+                ['Д.р.', reg.birthdate],
+                ['Пол', reg.gender === 'М' ? 'Мужской' : 'Женский'],
+                ['Страна', reg.country || '—'],
+                ['Город', reg.city || '—'],
+                ['Звание', reg.rank || '—'],
+                ['Команда', reg.team || '—'],
+                ['Лодка', reg.boat_class],
+                ['Телефон', reg.phone],
+            ];
+
+            rows.forEach(function(r) {
+                var row = document.createElement('div');
+                row.className = 'reg-card-row';
+                var label = document.createElement('span');
+                label.className = 'reg-card-label';
+                label.textContent = r[0];
+                var value = document.createElement('span');
+                value.className = 'reg-card-value';
+                value.textContent = r[1];
+                row.appendChild(label);
+                row.appendChild(value);
+                card.appendChild(row);
+            });
+
+            // Distances
+            if (reg.distances && reg.distances.length > 0) {
+                var distContainer = document.createElement('div');
+                distContainer.className = 'reg-card-distances';
+                reg.distances.forEach(function(d) {
+                    var badge = document.createElement('span');
+                    badge.className = 'badge badge--blue';
+                    badge.textContent = d;
+                    distContainer.appendChild(badge);
+                });
+                card.appendChild(distContainer);
+            }
+
+            container.appendChild(card);
+        });
+    }
+
+    // ─── Search ───
+    document.getElementById('searchBox').addEventListener('input', function() {
+        var query = this.value.toLowerCase().trim();
+        if (!query) {
+            renderTable(allData);
+            renderCards(allData);
+            return;
+        }
+
+        var filtered = allData.filter(function(reg) {
+            var haystack = [
+                reg.surname, reg.firstname, reg.patronymic,
+                reg.country, reg.city, reg.team,
+                reg.boat_class, reg.rank, reg.phone
+            ].join(' ').toLowerCase();
+            return haystack.indexOf(query) !== -1;
+        });
+
+        renderTable(filtered);
+        renderCards(filtered);
+    });
+</script>
+
+</body>
+</html>

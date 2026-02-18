@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сынтул-Мастерс 2026 — Регистрация</title>
+    <link rel="icon" type="image/png" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-900: #0A2463;
+            --blue-800: #0D3B8C;
+            --blue-700: #1054B5;
+            --blue-600: #1565C0;
+            --blue-500: #1E88E5;
+            --blue-400: #42A5F5;
+            --blue-100: #BBDEFB;
+            --blue-50: #E8F1FB;
+            --white: #FFFFFF;
+            --gray-50: #F7F9FC;
+            --gray-100: #EEF2F7;
+            --gray-200: #D8DFE9;
+            --gray-400: #8E99A9;
+            --gray-600: #4A5568;
+            --gray-800: #1A202C;
+            --red-500: #E53E3E;
+            --green-500: #38A169;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(10, 36, 99, 0.10);
+            --shadow-lg: 0 8px 40px rgba(10, 36, 99, 0.15);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ─── HEADER ─── */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 50%, var(--blue-500) 100%);
+            padding: 3rem 1.5rem 4rem;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255,255,255,0.08);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .hero-diamond {
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.06);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+        .hero-diamond--1 { width: 120px; height: 120px; bottom: -40px; left: 5%; }
+        .hero-diamond--2 { width: 80px; height: 80px; top: 20px; left: 15%; }
+        .hero-diamond--3 { width: 160px; height: 160px; bottom: -80px; right: 10%; }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            padding: 0.4rem 1.4rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: clamp(1.4rem, 4vw, 2.4rem);
+            line-height: 1.2;
+            margin-bottom: 0.6rem;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.75rem, 2vw, 1.1rem);
+            opacity: 0.9;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .hero-date svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.8;
+        }
+
+        /* ─── FORM CONTAINER ─── */
+        .container {
+            max-width: 720px;
+            margin: -2rem auto 3rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem 2rem;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-title {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--blue-800);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--blue-50);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .form-title svg {
+            width: 22px;
+            height: 22px;
+            color: var(--blue-500);
+            flex-shrink: 0;
+        }
+
+        /* ─── FORM ELEMENTS ─── */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-grid--2col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group--full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        label .required {
+            color: var(--red-500);
+            margin-left: 2px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            background: var(--white);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234A5568' d='M6 8.825a.5.5 0 0 1-.354-.146l-4-4a.5.5 0 0 1 .708-.708L6 7.617l3.646-3.646a.5.5 0 0 1 .708.708l-4 4A.5.5 0 0 1 6 8.825Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
+            padding-right: 2.4rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--blue-500);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.15);
+        }
+
+        input::placeholder { color: var(--gray-400); }
+
+        /* ─── RADIO BUTTONS ─── */
+        .radio-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.1rem;
+        }
+
+        .radio-option {
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            border-color: var(--blue-500);
+            background: var(--blue-50);
+            color: var(--blue-700);
+            font-weight: 600;
+        }
+
+        .radio-option label:hover {
+            border-color: var(--blue-400);
+        }
+
+        /* ─── CHECKBOXES (distances) ─── */
+        .distances-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .distance-option {
+            position: relative;
+        }
+
+        .distance-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .distance-option label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0.9rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .distance-option label::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray-200);
+            border-radius: 4px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .distance-option input[type="checkbox"]:checked + label {
+            border-color: var(--blue-500);
+            background: var(--blue-50);
+            color: var(--blue-700);
+            font-weight: 600;
+        }
+
+        .distance-option input[type="checkbox"]:checked + label::before {
+            background: var(--blue-500);
+            border-color: var(--blue-500);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M10.28 2.72a.75.75 0 0 1 0 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-2.5-2.5a.75.75 0 1 1 1.06-1.06L4.25 7.69l4.97-4.97a.75.75 0 0 1 1.06 0Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .distance-option label:hover {
+            border-color: var(--blue-400);
+        }
+
+        .distance-option--wide {
+            grid-column: 1 / -1;
+        }
+
+        /* ─── CONSENT ─── */
+        .consent-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 1rem 1.2rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .consent-block input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--blue-600);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .consent-block label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* ─── SUBMIT BUTTON ─── */
+        .submit-btn {
+            width: 100%;
+            padding: 0.9rem 2rem;
+            background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(13, 59, 140, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(13, 59, 140, 0.4);
+        }
+
+        .submit-btn:hover::before { opacity: 1; }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ─── SUCCESS OVERLAY ─── */
+        .success-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 36, 99, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .success-overlay.active { display: flex; }
+
+        .success-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            animation: popIn 0.4s ease-out;
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #38A169, #48BB78);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+        }
+
+        .success-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .success-card h3 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-close-btn {
+            padding: 0.7rem 2rem;
+            background: var(--blue-600);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .success-close-btn:hover { background: var(--blue-700); }
+
+        /* ─── ERROR ─── */
+        .field-error {
+            font-size: 0.78rem;
+            color: var(--red-500);
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.has-error input,
+        .form-group.has-error select {
+            border-color: var(--red-500);
+        }
+
+        .form-group.has-error .field-error {
+            display: block;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            color: var(--gray-400);
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: var(--blue-600);
+            text-decoration: none;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .hero { padding: 2rem 1rem 3rem; }
+            .form-card { padding: 1.5rem 1.2rem; }
+            .form-grid--2col { grid-template-columns: 1fr; }
+            .distances-grid { grid-template-columns: 1fr; }
+            .distance-option--wide { grid-column: 1; }
+            .radio-group { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── HERO HEADER ─── -->
+<header class="hero">
+    <div class="hero-diamond hero-diamond--1"></div>
+    <div class="hero-diamond hero-diamond--2"></div>
+    <div class="hero-diamond hero-diamond--3"></div>
+
+    <div class="hero-badge">Регистрация участников</div>
+    <h1>Сынтул-Мастерс</h1>
+    <p class="hero-subtitle">Межрегиональные соревнования по гребле<br>на байдарках и каноэ среди ветеранов</p>
+    <p class="hero-date">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+        15 &ndash; 17 мая 2026 г.
+    </p>
+</header>
+
+<!-- ─── FORM ─── -->
+<main class="container">
+    <form class="form-card" id="regForm" novalidate>
+
+        <!-- Личные данные -->
+        <h2 class="form-title">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+            Личные данные
+        </h2>
+
+        <div class="form-grid">
+            <div class="form-group form-group--full">
+                <label for="surname">Фамилия <span class="required">*</span></label>
+                <input type="text" id="surname" name="surname" placeholder="Иванов" required>
+                <span class="field-error">Введите фамилию</span>
+            </div>
+            <div class="form-grid form-grid--2col form-group--full" style="margin-bottom:0">
+                <div class="form-group">
+                    <label for="firstname">Имя <span class="required">*</span></label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Иван" required>
+                    <span class="field-error">Введите имя</span>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" id="patronymic" name="patronymic" placeholder="Иванович">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-grid form-grid--2col">
+            <div class="form-group">
+                <label for="birthdate">Дата рождения <span class="required">*</span></label>
+                <input type="date" id="birthdate" name="birthdate" required>
+                <span class="field-error">Укажите дату рождения</span>
+            </div>
+            <div class="form-group">
+                <label>Пол <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="gender_m" name="gender" value="М" required>
+                        <label for="gender_m">Муж</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="gender_f" name="gender" value="Ж">
+                        <label for="gender_f">Жен</label>
+                    </div>
+                </div>
+                <span class="field-error">Выберите пол</span>
+            </div>
+        </div>
+
+        <!-- Спорт -->
+        <h2 class="form-title" style="margin-top:0.5rem">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-4.5A3.375 3.375 0 0012.75 10.5h-1.5A3.375 3.375 0 007.5 14.25v4.5m9-9V6a3 3 0 00-3-3h-3a3 3 0 00-3 3v3.75"/></svg>
+            Спортивные данные
+        </h2>
+
+        <div class="form-grid form-grid--2col">
+            <div class="form-group">
+                <label for="country">Страна <span class="required">*</span></label>
+                <select id="country" name="country" required>
+                    <option value="Россия" selected>Россия</option>
+                    <option value="Беларусь">Беларусь</option>
+                    <option value="Казахстан">Казахстан</option>
+                    <option value="Узбекистан">Узбекистан</option>
+                    <option value="Азербайджан">Азербайджан</option>
+                    <option value="Армения">Армения</option>
+                    <option value="Грузия">Грузия</option>
+                    <option value="Кыргызстан">Кыргызстан</option>
+                    <option value="Молдова">Молдова</option>
+                    <option value="Таджикистан">Таджикистан</option>
+                    <option value="Туркменистан">Туркменистан</option>
+                    <option value="Латвия">Латвия</option>
+                    <option value="Литва">Литва</option>
+                    <option value="Эстония">Эстония</option>
+                </select>
+                <span class="field-error">Выберите страну</span>
+            </div>
+            <div class="form-group">
+                <label for="city">Город <span class="required">*</span></label>
+                <select id="city" name="city" required>
+                    <option value="">— Выберите —</option>
+                </select>
+                <input type="text" id="cityOther" name="city_other" placeholder="Введите город" style="display:none;margin-top:0.5rem">
+                <span class="field-error">Выберите город</span>
+            </div>
+        </div>
+
+        <div class="form-grid form-grid--2col">
+            <div class="form-group">
+                <label for="rank">Спортивное звание</label>
+                <select id="rank" name="rank">
+                    <option value="Без разряда" selected>Без разряда</option>
+                    <option value="Заслуженный Мастер Спорта">Заслуженный Мастер Спорта</option>
+                    <option value="Мастер Спорта Международного Класса">Мастер Спорта Международного Класса</option>
+                    <option value="Мастер Спорта СССР">Мастер Спорта СССР</option>
+                    <option value="Мастер Спорта России">Мастер Спорта России</option>
+                    <option value="Мастер Спорта страны участницы чемпионата">Мастер Спорта страны участницы чемпионата</option>
+                    <option value="Кандидат в Мастера Спорта">Кандидат в Мастера Спорта</option>
+                    <option value="1 взрослый разряд">1 взрослый разряд</option>
+                    <option value="2 взрослый разряд">2 взрослый разряд</option>
+                    <option value="3 взрослый разряд">3 взрослый разряд</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="team">Команда <span class="required">*</span></label>
+                <input type="text" id="team" name="team" placeholder="Динамо Рязань" required>
+                <span class="field-error">Укажите команду</span>
+            </div>
+        </div>
+
+        <div class="form-grid form-grid--2col">
+            <div class="form-group">
+                <label for="boat_class">Класс лодки <span class="required">*</span></label>
+                <select id="boat_class" name="boat_class" required>
+                    <option value="">— Выберите —</option>
+                    <option value="К-1">К-1 (байдарка-одиночка)</option>
+                    <option value="К-2">К-2 (байдарка-двойка)</option>
+                    <option value="К-4">К-4 (байдарка-четвёрка)</option>
+                    <option value="С-1">С-1 (каноэ-одиночка)</option>
+                    <option value="С-2">С-2 (каноэ-двойка)</option>
+                    <option value="С-4">С-4 (каноэ-четвёрка)</option>
+                </select>
+                <span class="field-error">Выберите класс лодки</span>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон <span class="required">*</span></label>
+                <input type="text" inputmode="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+                <span class="field-error">Введите номер телефона</span>
+            </div>
+        </div>
+
+        <!-- Дистанции -->
+        <h2 class="form-title" style="margin-top:0.5rem">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+            Дистанции <span style="font-family:'Montserrat';font-weight:400;font-size:0.8rem;color:var(--gray-400);margin-left:0.3rem">(выберите одну или несколько)</span>
+        </h2>
+
+        <div class="distances-grid" style="margin-bottom:2rem">
+            <div class="distance-option">
+                <input type="checkbox" id="dist_200" name="distances" value="200 м">
+                <label for="dist_200">200 м</label>
+            </div>
+            <div class="distance-option">
+                <input type="checkbox" id="dist_500" name="distances" value="500 м">
+                <label for="dist_500">500 м</label>
+            </div>
+            <div class="distance-option">
+                <input type="checkbox" id="dist_1000" name="distances" value="1000 м">
+                <label for="dist_1000">1000 м</label>
+            </div>
+            <div class="distance-option">
+                <input type="checkbox" id="dist_5000" name="distances" value="5000 м">
+                <label for="dist_5000">5000 м</label>
+            </div>
+            <div class="distance-option distance-option--wide">
+                <input type="checkbox" id="dist_relay" name="distances" value="Эстафета 4×200">
+                <label for="dist_relay">Эстафета 4 &times; 200</label>
+            </div>
+        </div>
+
+        <!-- Согласие -->
+        <div class="consent-block">
+            <input type="checkbox" id="consent" name="consent" required>
+            <label for="consent">
+                Согласен(а) на хранение и обработку персональных данных
+                в соответствии с Федеральным законом №152-ФЗ «О персональных данных»
+            </label>
+        </div>
+        <span class="field-error" id="consent-error" style="margin-top:-1rem;margin-bottom:1rem">
+            Необходимо дать согласие на обработку данных
+        </span>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            Отправить заявку
+        </button>
+    </form>
+</main>
+
+<!-- ─── SUCCESS OVERLAY ─── -->
+<div class="success-overlay" id="successOverlay">
+    <div class="success-card">
+        <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+        </div>
+        <h3>Заявка отправлена!</h3>
+        <p>Спасибо за регистрацию. Увидимся на Сынтул-Мастерс&nbsp;2026!</p>
+        <button class="success-close-btn" id="successCloseBtn">Отлично</button>
+    </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+    &copy; 2026 Сынтул-Мастерс &middot; Межрегиональные соревнования по гребле на байдарках и каноэ
+</footer>
+
+<script>
+    // ─── Cities by country ───
+    var citiesByCountry = {
+        'Россия': [
+            // Москва и Петербург
+            'Москва','Санкт-Петербург',
+            // Центральный ФО
+            'Белгород','Брянск','Владимир','Воронеж','Иваново',
+            'Калуга','Кострома','Курск','Липецк','Орёл',
+            'Рязань','Смоленск','Тамбов','Тверь','Тула','Ярославль',
+            // Северо-Западный ФО
+            'Архангельск','Вологда','Великий Новгород','Калининград',
+            'Мурманск','Нарьян-Мар','Петрозаводск','Псков','Сыктывкар',
+            // Южный ФО
+            'Астрахань','Волгоград','Краснодар','Майкоп','Ростов-на-Дону',
+            'Севастополь','Симферополь','Элиста',
+            // Северо-Кавказский ФО
+            'Владикавказ','Грозный','Дербент','Махачкала','Магас',
+            'Нальчик','Ставрополь','Черкесск',
+            // Приволжский ФО
+            'Ижевск','Йошкар-Ола','Казань','Киров','Нижний Новгород',
+            'Оренбург','Пенза','Пермь','Самара','Саранск','Саратов',
+            'Ульяновск','Уфа','Чебоксары',
+            // Уральский ФО
+            'Екатеринбург','Курган','Салехард','Тюмень',
+            'Ханты-Мансийск','Челябинск',
+            // Сибирский ФО
+            'Абакан','Барнаул','Горно-Алтайск','Иркутск','Кемерово',
+            'Красноярск','Кызыл','Новосибирск','Омск','Томск',
+            // Дальневосточный ФО
+            'Анадырь','Биробиджан','Благовещенск','Владивосток',
+            'Магадан','Петропавловск-Камчатский','Хабаровск',
+            'Чита','Южно-Сахалинск','Якутск',
+            // Крупные города
+            'Балашиха','Видное','Дзержинск','Дмитров','Долгопрудный',
+            'Домодедово','Дубна','Егорьевск','Железнодорожный',
+            'Жуковский','Ивантеевка','Клин','Коломна','Королёв',
+            'Красногорск','Лобня','Люберцы','Мытищи',
+            'Набережные Челны','Наро-Фоминск','Нижнекамск',
+            'Нижний Тагил','Новокузнецк','Новороссийск','Ногинск',
+            'Обнинск','Одинцово','Орехово-Зуево','Подольск',
+            'Пушкино','Раменское','Реутов','Сергиев Посад',
+            'Серпухов','Солнечногорск','Сочи','Старая Купавна',
+            'Стерлитамак','Ступино','Сургут','Сынтул',
+            'Таганрог','Тольятти','Фрязино','Химки',
+            'Чехов','Щёлково','Электросталь',
+            // Другой
+            '__OTHER__',
+        ],
+        'Беларусь': ['Минск','Гомель','Могилёв','Витебск','Гродно','Брест','__OTHER__'],
+        'Казахстан': ['Астана','Алматы','Шымкент','Караганда','Актобе','Павлодар','__OTHER__'],
+        'Узбекистан': ['Ташкент','Самарканд','Бухара','Наманган','Андижан','__OTHER__'],
+        'Азербайджан': ['Баку','Гянджа','Сумгаит','Мингечевир','__OTHER__'],
+        'Армения': ['Ереван','Гюмри','Ванадзор','__OTHER__'],
+        'Грузия': ['Тбилиси','Батуми','Кутаиси','__OTHER__'],
+        'Кыргызстан': ['Бишкек','Ош','Джалал-Абад','__OTHER__'],
+        'Молдова': ['Кишинёв','Бельцы','Тирасполь','__OTHER__'],
+        'Таджикистан': ['Душанбе','Худжанд','Куляб','__OTHER__'],
+        'Туркменистан': ['Ашхабад','Туркменабат','Дашогуз','__OTHER__'],
+        'Латвия': ['Рига','Даугавпилс','Лиепая','__OTHER__'],
+        'Литва': ['Вильнюс','Каунас','Клайпеда','__OTHER__'],
+        'Эстония': ['Таллин','Тарту','Нарва','__OTHER__'],
+    };
+
+    var countrySelect = document.getElementById('country');
+    var citySelect = document.getElementById('city');
+
+    var cityOtherInput = document.getElementById('cityOther');
+
+    function populateCities() {
+        var country = countrySelect.value;
+        var cities = citiesByCountry[country] || [];
+
+        while (citySelect.firstChild) {
+            citySelect.removeChild(citySelect.firstChild);
+        }
+
+        var defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = '— Выберите —';
+        citySelect.appendChild(defaultOpt);
+
+        var sorted = cities.filter(function(c) { return c !== '__OTHER__'; }).sort();
+        sorted.forEach(function(city) {
+            var opt = document.createElement('option');
+            opt.value = city;
+            opt.textContent = city;
+            citySelect.appendChild(opt);
+        });
+        if (cities.indexOf('__OTHER__') !== -1) {
+            var otherOpt = document.createElement('option');
+            otherOpt.value = '__OTHER__';
+            otherOpt.textContent = 'Другой...';
+            citySelect.appendChild(otherOpt);
+        }
+
+        cityOtherInput.style.display = 'none';
+        cityOtherInput.value = '';
+    }
+
+    citySelect.addEventListener('change', function() {
+        if (this.value === '__OTHER__') {
+            cityOtherInput.style.display = 'block';
+            cityOtherInput.focus();
+        } else {
+            cityOtherInput.style.display = 'none';
+            cityOtherInput.value = '';
+        }
+    });
+
+    countrySelect.addEventListener('change', populateCities);
+    populateCities();
+
+    // ─── Phone mask: +7 (___) ___-__-__ ───
+    var phoneInput = document.getElementById('phone');
+    var phoneMask = '+7 (___) ___-__-__';
+
+    phoneInput.addEventListener('focus', function() {
+        if (!this.value) this.value = '+7 (';
+    });
+
+    phoneInput.addEventListener('blur', function() {
+        if (this.value === '+7 (' || this.value === '+7') this.value = '';
+    });
+
+    phoneInput.addEventListener('keydown', function(e) {
+        // Allow navigation keys
+        if (['ArrowLeft','ArrowRight','Home','End','Tab'].indexOf(e.key) !== -1) return;
+
+        // Backspace
+        if (e.key === 'Backspace') {
+            e.preventDefault();
+            var digits = this.value.replace(/\D/g, '').slice(1); // without leading 7
+            if (digits.length > 0) {
+                digits = digits.slice(0, -1);
+                this.value = formatPhone(digits);
+            }
+            return;
+        }
+
+        // Delete
+        if (e.key === 'Delete') {
+            e.preventDefault();
+            return;
+        }
+
+        // Only digits
+        if (e.key.length === 1 && !/\d/.test(e.key)) {
+            e.preventDefault();
+            return;
+        }
+
+        if (/\d/.test(e.key)) {
+            e.preventDefault();
+            var digits = this.value.replace(/\D/g, '').slice(1); // without leading 7
+            if (digits.length >= 10) return; // max 10 digits after +7
+            digits += e.key;
+            this.value = formatPhone(digits);
+        }
+    });
+
+    phoneInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        var paste = (e.clipboardData || window.clipboardData).getData('text');
+        var digits = paste.replace(/\D/g, '');
+        if (digits.startsWith('8')) digits = '7' + digits.slice(1);
+        if (digits.startsWith('7')) digits = digits.slice(1);
+        digits = digits.slice(0, 10);
+        this.value = formatPhone(digits);
+    });
+
+    function formatPhone(digits) {
+        var f = '+7';
+        if (digits.length > 0) f += ' (' + digits.slice(0, 3);
+        if (digits.length >= 3) f += ') ' + digits.slice(3, 6);
+        else if (digits.length > 0) return f;
+        if (digits.length >= 6) f += '-' + digits.slice(6, 8);
+        if (digits.length >= 8) f += '-' + digits.slice(8, 10);
+        return f;
+    }
+
+    // ─── Success overlay ───
+    function closeSuccess() {
+        document.getElementById('successOverlay').classList.remove('active');
+    }
+
+    document.getElementById('successCloseBtn').addEventListener('click', closeSuccess);
+
+    document.getElementById('successOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeSuccess();
+    });
+
+    // ─── Validation & Submit ───
+    const form = document.getElementById('regForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function clearErrors() {
+        form.querySelectorAll('.has-error').forEach(function(el) { el.classList.remove('has-error'); });
+        document.getElementById('consent-error').style.display = 'none';
+    }
+
+    function showError(field) {
+        var group = field.closest('.form-group');
+        if (group) group.classList.add('has-error');
+    }
+
+    function setButtonLoading(loading) {
+        if (loading) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '';
+            var spinner = document.createElement('span');
+            spinner.className = 'spinner';
+            submitBtn.appendChild(spinner);
+            submitBtn.appendChild(document.createTextNode(' Отправка...'));
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Отправить заявку';
+        }
+    }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        clearErrors();
+
+        var valid = true;
+
+        // Required text fields
+        ['surname', 'firstname', 'birthdate', 'team', 'phone'].forEach(function(id) {
+            var field = document.getElementById(id);
+            if (!field.value.trim()) { showError(field); valid = false; }
+        });
+
+        // Boat class
+        var boatClass = document.getElementById('boat_class');
+        if (!boatClass.value) { showError(boatClass); valid = false; }
+
+        // City
+        var cityVal = citySelect.value;
+        if (!cityVal) {
+            showError(citySelect); valid = false;
+        } else if (cityVal === '__OTHER__' && !cityOtherInput.value.trim()) {
+            showError(citySelect); valid = false;
+        }
+
+        // Gender
+        if (!document.querySelector('input[name="gender"]:checked')) {
+            var genderGroup = document.querySelector('.radio-group').closest('.form-group');
+            if (genderGroup) genderGroup.classList.add('has-error');
+            valid = false;
+        }
+
+        // Distances
+        var distances = document.querySelectorAll('input[name="distances"]:checked');
+
+        // Consent
+        if (!document.getElementById('consent').checked) {
+            document.getElementById('consent-error').style.display = 'block';
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // Collect data
+        var data = {
+            surname: document.getElementById('surname').value.trim(),
+            firstname: document.getElementById('firstname').value.trim(),
+            patronymic: document.getElementById('patronymic').value.trim(),
+            birthdate: document.getElementById('birthdate').value,
+            gender: document.querySelector('input[name="gender"]:checked').value,
+            country: document.getElementById('country').value,
+            city: citySelect.value === '__OTHER__' ? cityOtherInput.value.trim() : citySelect.value,
+            rank: document.getElementById('rank').value,
+            team: document.getElementById('team').value.trim(),
+            boat_class: document.getElementById('boat_class').value,
+            phone: document.getElementById('phone').value.trim(),
+            distances: Array.from(distances).map(function(cb) { return cb.value; })
+        };
+
+        // Submit
+        setButtonLoading(true);
+
+        try {
+            var resp = await fetch('/api', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            var result = await resp.json();
+
+            if (result.success) {
+                document.getElementById('successOverlay').classList.add('active');
+                form.reset();
+            } else {
+                alert(result.error || 'Ошибка сервера. Попробуйте позже.');
+            }
+        } catch (err) {
+            alert('Ошибка соединения. Проверьте интернет и попробуйте снова.');
+        }
+
+        setButtonLoading(false);
+    });
+</script>
+
+</body>
+</html>
